@@ -1,0 +1,33 @@
+<html>
+    <head>
+        <title>Feeds</title>
+        <script>
+                function load_feed(){
+                    var x=new XMLHttpRequest();
+                    x.onreadystatechange=function(){
+                        if(this.readyState==4 && this.status==200)
+                            document.getElementById("feed").innerHTML=this.responseText;
+                    }
+                    x.open("GET","feed.php?val=1",true);
+                    x.send();
+                }
+                setInterval(load_feed,1000);
+                function upload(){
+                    var x=new XMLHttpRequest();
+                    var feedtext=document.getElementById("feedtext")
+                    x.open("GET","feed.php?val=2&feed="+feedtext.value);
+                    x.send();
+                    feedtext.value="";
+                }
+            </script>
+    </head>
+    <body style="text-align:center;width:100%">
+        <p><h1>Feeds</h1></p>
+        <div id="feed">
+        </div>
+        <div style="float:left">
+            <input type="text" id="feedtext">
+            <input type="button" value="Send" onClick=upload()>
+        </div>
+    </body>
+</html>
